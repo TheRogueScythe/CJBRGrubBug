@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Home Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/"><img src="/static/images/logo_hori.png" alt="GrubBug Logo" width="200"></a>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <h2>Welcome, {{ user }}!</h2>
+        <form action="/createuser">
+            <button type="submit">Go to Create User</button>
+        </form>
+        <form action="/viewdb">
+            <button type="submit">Go to View Users</button>
+        </form>
+
+
+    </main>
+    
+
+    <footer>
+
+    </footer>
+</body>
+</html>

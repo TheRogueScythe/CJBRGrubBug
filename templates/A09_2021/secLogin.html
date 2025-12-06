@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+
+
+  <header class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="/"><img src="/static/images/logo_hori.png" alt="GrubBug Logo" width="200"></a>
+        </div>
+        <nav>
+            <ul>
+                <li>Welcome, {{ user }} </li>
+                <li><form action="/logout"><button type="submit">Logout</button></form></li>
+                <li><form action="/mainpage"><button type="submit">Move to Homepage</button></form></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+
+    <main>
+      <div class="container">
+        <h1>Security Dashboard Login</h1>
+        <p>Login to access the dashboard.</p>
+
+        <form method="post">
+          <input type="text" name="username" placeholder="Username">
+          <input type="password" name="password" placeholder="Password">
+          <button type="submit">Login</button>
+        </form>
+
+        {% if error %}
+          <p style="color:red;">{{ error }}</p>
+        {% endif %}
+      </div>
+    </main>
+
+
+</body>
+</html>

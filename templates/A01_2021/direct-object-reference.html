@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title Here</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="/"><img src="/static/images/logo_hori.png" alt="GrubBug Logo" width="200"></a>
+        </div>
+        <nav>
+            <ul>
+                <li>Welcome, {{ user }} </li>
+                <li><form action="/logout"><button type="submit">Logout</button></form></li>
+                <li><form action="/mainpage"><button type="submit">Move to Homepage</button></form></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+
+    <main>
+        
+        <div class="container">
+            <h1>Direct Object References</h1>
+            {% if mode == "secure" %}
+                <p>You are viewing your own profile (User ID: {{ user_id }}). Object references are validated to prevent unauthorized access.</p>
+            {% else %}
+                <p>You are viewing User ID: {{ user_id }}. In insecure mode, references are not validated, allowing unauthorized access.</p>
+                <p>Try modifying the URL to access other user profiles, e.g., <code>?id=2</code>.</p>
+            {% endif %}
+        </div>
+
+        
+        
+    </main>
+    
+<footer>
+    <form action="/mainpage">
+        <button type="submit">Move to Homepage</button>
+    </form>
+</footer>
+
+
+
+    
+</body>
+</html>

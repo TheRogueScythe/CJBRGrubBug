@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A01:2021</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="/"><img src="/static/images/logo_hori.png" alt="GrubBug Logo" width="200"></a>
+        </div>
+        <nav>
+            <ul>
+                <li>Welcome, {{ user }} </li>
+                <li><form action="/logout"><button type="submit">Logout</button></form></li>
+                <li><form action="/mainpage"><button type="submit">Move to Homepage</button></form></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<main>
+    <div class="container">
+        <h1>A01-2021: Broken Access Control</h1>
+        <p>
+            Broken Access Control vulnerabilities occur when users can access resources or perform actions 
+            outside of their intended permissions. This hub showcases examples of insecure and secure implementations.
+        </p>
+
+        <div class="examples">
+            <h2>Examples</h2>
+            <ul>
+                <li>
+                    <a href="/privileged-area">Role-Based Access Control Violation</a>
+                    <p id="privileged-description">
+                        In insecure mode, users can access this area without proper authorization. In secure mode, access is restricted to authorized roles only.
+                    </p>
+                </li>
+                <li>
+                    <a href="/direct-object-reference/2">Direct Object Reference</a>
+                    <p id="direct-object-description">
+                        In insecure mode, manipulating object identifiers (e.g., user IDs in a URL) allows unauthorized access to resources. In secure mode, these references are validated.
+                    </p>
+                </li>
+                <li>
+                    <a href="/api-delete/1">API Delete</a>
+                    <p id="api-delete-description">
+                        Explore the API delete functionality and understand how insecure implementations can lead to unauthorized data deletion. In insecure mode, use a tool like Postman or cURL to send a `POST` request to `/api-delete/<file_name>` and delete any file, even if you don't own it. In secure mode, deletion is restricted to the file owner, and protected files cannot be deleted.
+                    </p>
+                </li>
+                <li>
+                    <a href="/direct-file-access">Direct File Access</a>
+                    <p id="file-access-description">
+                        Simulate direct file access to understand the risks of insecure file handling.
+                    </p>
+                </li>
+                <li>
+                    <a href="/mass-assignment">Mass Assignment Vulnerability</a>
+                    <p id="mass-assignment-description">
+                        Experiment with mass assignment vulnerabilities and see how secure and insecure modes handle field updates.
+                    </p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="challenge">
+            <P>
+                This is a demo Admin Login page. This is insecuire by design, so try to login. 
+            </P>
+            <div class="login-box">
+                <form onsubmit="return checkLogin()">
+                    <label>Username:</label>
+                    <input type="text" id="username" />
+                    <label>Password:</label>
+                    <input type="password" id="password" />
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+
+            <div class="hidden-creds">
+                Username: admin  
+                Password: password123
+            </div>
+
+            
+
+        </div>
+        
+        <div class="toggle-section">
+            <h2>Secure/Insecure Mode</h2>
+            <p>Use the button below to toggle the site between secure and insecure modes to observe the vulnerabilities.</p>
+            <button id="toggle-mode" class="btn-primary">
+                Switch Mode
+            </button>
+            <p id="mode-status">Current Mode: Secure</p>
+        </div>
+        <a href="javascript:void(0)" onclick="window.history.length > 1 ? history.back() : window.location.href = '/'">Go Back</a>
+        <div class="examples">
+            <h2>File Demonstrations</h2>
+            <p>Below is a list of demo files. Use these files to test various access control vulnerabilities.</p>
+            <div id="file-list"></div>
+        </div>
+	<br><br>
+    </div>
+</main>
+
+<footer>
+    <div class="flag-box" id="flagBox">
+        <h2>Enter the Flag</h2>
+        <input type="text" id="flagInput" />
+        <button onclick="submitFlag()">Submit Flag</button>
+    </div>
+</footer>
+
+<script>
+    let isSecure = true;
+
+        document.getElementById('toggle-mode').addEventListener('click', () => {
+            isSecure = !isSecure;
+            const mode = isSecure ? 'Secure' : 'Insecure';
+            document.getElementById('mode-status').textContent = `Current Mode: ${mode}`;
+        });
+
+      
+        function checkLogin() {
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+
+            if (user === "admin" && pass === "password123") {
+                // Fetch flag from backend
+                fetch("/flag/A01")
+                    .then(response => response.json())
+                    .then(data => {
+                        alert("Login successful! Your flag is " + data.flag);
+                        document.getElementById("flagBox").style.display = "block";
+                    });
+            } else {
+                alert("Login failed. Try again.");
+            }
+            return false;
+        }
+
+        // Dynamic solutions
+        async function submitFlag() {
+            const userFlag = document.getElementById("flagInput").value;
+            const response = await fetch("/dynamicSolution", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    challenge_id: "A01_2021",
+                    input: userFlag
+                })
+            });
+            const result = await response.json();
+            if (result.correct) {
+                window.location.href = "/A01_2021_Flag";
+            } else {
+                alert(result.feedback + (result.explanation ? " " + result.explanation : ""));
+            }
+            return false;
+        }
+        
+        
+
+</script>
+
+</body>
+</html>

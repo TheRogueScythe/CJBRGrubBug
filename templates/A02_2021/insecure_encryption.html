@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Insecure Encryption Demo{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Insecure Encryption Demo</h1>
+    <p>Demonstrating the risks of weak encryption.</p>
+    
+    <p><strong>Current Mode:</strong> {{ mode }}</p>
+    
+    <h2>Encryption Methods</h2>
+    <p><strong>Secure Encryption:</strong> {{ explanation['secure'] }}</p>
+    <p><strong>Insecure Encryption:</strong> {{ explanation['insecure'] }}</p>
+
+    <form method="POST">
+        <label for="message">Enter a message to encrypt:</label>
+        <input type="text" id="message" name="message" required>
+        <button type="submit" class="btn-primary">Encrypt</button>
+    </form>
+
+    {% if message %}
+        <h3>Results for Input: "{{ message }}"</h3>
+
+        <h4>Insecure Encryption (AES-128, hardcoded key & IV)</h4>
+        <p><strong>Encrypted:</strong> {{ encrypted_insecure }}</p>
+        <p><strong>Decrypted:</strong> {{ decrypted_insecure }}</p>
+        <p style="color: red;"><strong>Brute Force Time Estimate:</strong> {{ brute_force_time }}</p>
+
+        <h4>Secure Encryption (AES-256, randomized key & IV)</h4>
+        <p><strong>Encrypted:</strong> {{ encrypted_secure }}</p>
+        <p><strong>Decrypted:</strong> {{ decrypted_secure }}</p>
+    {% endif %}
+
+    <a href="javascript:void(0)" onclick="window.history.back()">Go Back</a>
+</div>
+{% endblock %}

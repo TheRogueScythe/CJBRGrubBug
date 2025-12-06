@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Security Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <style>
+    .flag-box {
+      background: #e8f5e9;
+      border: 1px solid #4caf50;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+    .security-note {
+      color: #c0392b;
+      font-style: italic;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+  
+  <header>
+    <h1>Welcome to the Security Dashboard</h1>
+  </header>
+  <main>
+    <h2>System and Security Logs</h2>
+    <p>This system does not log failed login attempts. CONTACT INFORMATION SECURITY OFFICER</p>
+    
+    <div class="flag-box">
+      {{ flag }}
+    </div>
+    
+    <p class="security-note">WARNING: No monitoring in place</p>
+  </main>
+</body>
+</html>

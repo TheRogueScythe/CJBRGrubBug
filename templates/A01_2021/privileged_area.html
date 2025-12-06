@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title Here</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="/"><img src="/static/images/logo_hori.png" alt="GrubBug Logo" width="200"></a>
+        </div>
+        <nav>
+            <ul>
+                <li>Welcome, {{ user }} </li>
+                <li><form action="/logout"><button type="submit">Logout</button></form></li>
+                <li><form action="/mainpage"><button type="submit">Move to Homepage</button></form></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+
+    <main>
+        <div class="container">
+            <h1>Privileged Area</h1>
+            <p>
+                Welcome to the privileged area. This page demonstrates Broken Access Control.
+            </p>
+            {% if mode == "insecure" %}
+                <p><strong>Warning:</strong> You have accessed this area without proper authorization!</p>
+            {% elif mode == "secure" %}
+                <p><strong>Secure Mode:</strong> Only authorized users can access this area.</p>
+            {% endif %}
+            <p>Current Mode: {{ mode | capitalize}}</p>
+            <a href="javascript:void(0)" onclick="window.history.length > 1 ? history.back() : window.location.href = '/'">Go Back</a>
+        </div>
+    </main>
+    
+<footer>
+    <form action="/mainpage">
+        <button type="submit">Move to Homepage</button>
+    </form>
+</footer>
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mainPage</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="/"><img src="/static/images/logo_hori.png" alt="GrubBug Logo" width="200"></a>
+        </div>
+        <nav>
+            <ul>
+                <li>Welcome, {{ user }} </li>
+                <li><form action="/logout"><button type="submit">Logout</button></form></li>
+                <li><form action="/mainpage"><button type="submit">Move to Homepage</button></form></li>
+                <li><form action="/demopage"><button type="submit">Move to Demos Page</button></form></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+<div class="container">
+    
+    <h2>Welcome, {{ user }}!</h2>
+    <p>
+        Here is the challenge that you were randomly assigned to:
+    </p>
+    <p> Click the button below for a randomized challenge </p>
+    <form action="{{ url_for('randomizer') }}" method="get">
+        <button type="submit">Get a Random Challenge</button>
+    </form>
+
+
+</div>  
+</main>
+<footer>
+    <form action="/logout">
+        <button type="submit">Logout</button>
+    </form>
+</footer>  
+</body>
+</html>

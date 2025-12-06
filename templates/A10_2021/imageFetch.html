@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu Access</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+<h1>Welcome to the Menu Image Fetcher</h1>
+<p>Enter a URL to access menu data:</p>
+
+<form method="post">
+  <input type="text" name="url" placeholder="http://example.com/menu">
+  <button type="submit">Fetch</button>
+</form>
+
+{% if content %}
+  <h3>Fetched Content:</h3>
+  <pre>{{ content }}</pre>
+{% endif %}
+</body>
+</html>

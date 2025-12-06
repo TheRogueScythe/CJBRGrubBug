@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A02:2021</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="/"><img src="/static/images/logo_hori.png" alt="GrubBug Logo" width="200"></a>
+        </div>
+        <nav>
+            <ul>
+                <li>Welcome, {{ user }} </li>
+                <li><form action="/logout"><button type="submit">Logout</button></form></li>
+                <li><form action="/mainpage"><button type="submit">Move to Homepage</button></form></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+<div class="container">
+    <h1>A02-2021: Cryptographic Failures</h1>
+    <p>
+        Cryptographic Failures occur when sensitive data is not properly protected through secure cryptographic methods.
+        This hub demonstrates examples of insecure and secure cryptographic implementations.
+    </p>
+
+    <div class="examples">
+        <h2>Examples</h2>
+        <ul>
+            <li>
+                <a href="/insecure-encryption">Insecure Encryption</a>
+                <p>
+                    Demonstrates the impact of weak encryption methods (e.g., ECB mode, short keys, and hardcoded secrets).
+                </p>
+            </li>
+            <li>
+                <a href="/missing-encryption">Missing Encryption</a>
+                <p>
+                    Highlights data exposed in transit and at rest due to lack of encryption.
+                </p>
+            </li>
+            <li>
+                <a href="/weak-hashing">Weak Hashing</a>
+                <p>
+                    Compares weak hashing algorithms (e.g., MD5, SHA1) vs. modern alternatives (e.g., bcrypt, Argon2).
+                </p>
+            </li>
+            <li>
+                <a href="/predictable-random">Predictable Random Numbers</a>
+                <p>
+                    Explains why weak random number generation compromises cryptographic security.
+                </p>
+            </li>
+            <li>
+                <a href="/key-reuse">Key Reuse Across Sessions</a>
+                <p>
+                    Shows why reusing the same encryption key across multiple sessions is a vulnerability.
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="challenge">
+        <h2>Challenge</h2>
+        <p>Here is some "encrypted" data: <strong>U0VDUkVUX1ZBTFVF</strong></p>
+        <p>Decode it to find the secret string, then enter it below:</p>
+
+        <input type="text" id="decodedInput" placeholder="Enter decoded string">
+        <button onclick="checkDecoded()">Submit</button>
+        <p id="result"></p>
+    </div>
+  
+</div>
+</main>
+
+    <footer>
+        <div id="flagBox" style="display:none;">
+            <h2>Enter the Flag</h2>
+            <form onsubmit="return submitFlag()">
+                <input type="text" id="flagInput" placeholder="Enter flag here">
+                <button type="submit">Submit Flag</button>
+            </form>
+        </div>
+    </footer>
+
+
+    <script>
+        let isSecure = true;
+
+        function checkDecoded() {
+            const val = document.getElementById("decodedInput").value;
+
+            // The decoded value of U0VDUkVUX1ZBTFVF is "SECRET_VALUE"
+            if (val === "SECRET_VALUE") {
+                // Fetch flag from backend
+                fetch("/flag/A02")
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("result").textContent = "Flag: " + data.flag;
+                    });
+            } else {
+                document.getElementById("result").textContent = "Incorrect. Try again.";
+            }
+        }
+
+        // Dynamic solutions
+        async function submitFlag() {
+            const userFlag = document.getElementById("flagInput").value;
+            const response = await fetch("/dynamicSolution", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    challenge_id: "A02_2021",
+                    input: userFlag
+                })
+            });
+            const result = await response.json();
+            if (result.correct) {
+                window.location.href = "/A02_2021_Flag";
+            } else {
+                alert(result.feedback + (result.explanation ? " " + result.explanation : ""));
+            }
+            return false;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Directory Search Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+<h1>Directory and File Search Tool</h1>
+<p>WARNING: This page uses an outdated library. Use the search bar to look for files within the directory:</p>
+
+<form id="searchForm" method="post">
+  <input type="text" name="search" placeholder="Search here">
+  <button type="submit">Search</button>
+</form>
+
+<h3>Search results for: <code>{{ query }}</code></h3>
+  <ul>
+    <li>Found: {{ query }}.txt</li>
+    <li>Found: {{ query }}/index</li>
+  </ul>
+
+<script src="https://code.jquery.com/jquery-1.4.2.min.js"></script>
+
+<script>
+  document.getElementById("searchForm").addEventListener("submit", function(event) {
+    alert('{{ flag }}');
+  });
+</script>
+</body>
+</html>

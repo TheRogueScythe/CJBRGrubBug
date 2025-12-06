@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A03:2021</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="/"><img src="/static/images/logo_hori.png" alt="GrubBug Logo" width="200"></a>
+        </div>
+        <nav>
+            <ul>
+                <li>Welcome, {{ user }} </li>
+                <li><form action="/logout"><button type="submit">Logout</button></form></li>
+                <li><form action="/mainpage"><button type="submit">Move to Homepage</button></form></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<main>
+    <div class="container">
+            <h1>A03-2021: Injection</h1>
+            <p>
+                Injection vulnerabilities occur when untrusted data is sent to an interpreter as part of a command or query, 
+                potentially allowing attackers to execute unauthorized commands or access data without proper authorization.
+            </p>
+
+            <div class="examples">
+                <h2>Examples</h2>
+                <ul>
+                    <li><a href="/sql-injection">SQL Injection</a></li>
+                    <li><a href="/command-injection">Command Injection</a></li>
+                    <!-- Add more examples as needed -->
+                </ul>
+            </div>
+
+        <div class="challange">
+            <h2>A03: SQL Injection Challenge</h2>
+            <p>Try to log in.</p>
+            <form action="/A03_2021" method="post">
+                <label>Username:</label>
+                <input type="text" name="username">
+                <label>Password:</label>
+                <input type="password" name="password">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        
+        <div class="toggle-section">
+            <h2>Secure/Insecure Mode</h2>
+            <p>Use the button below to toggle the site between secure and insecure modes to observe the vulnerabilities.</p>
+            <button id="toggle-mode" class="btn-primary">
+                Switch Mode
+            </button>
+            <p id="mode-status">Current Mode: Secure</p>
+        </div>
+
+</main>
+
+<footer>
+    <div class="flag-box" id="flagBox">
+        <h2>Enter the Flag</h2>
+        <input type="text" id="flagInput" />
+        <button onclick="submitFlag()">Submit Flag</button>
+    </div>
+</footer>
+
+
+    <script>
+        let isSecure = true;
+
+        document.getElementById('toggle-mode').addEventListener('click', () => {
+            isSecure = !isSecure;
+            const mode = isSecure ? 'Secure' : 'Insecure';
+            document.getElementById('mode-status').textContent = `Current Mode: ${mode}`;
+        });
+
+        // Dynamic solutions
+        async function submitFlag() {
+            const userFlag = document.getElementById("flagInput").value;
+            const response = await fetch("/dynamicSolution", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    challenge_id: "A03_2021",
+                    input: userFlag
+                })
+            });
+            const result = await response.json();
+            if (result.correct) {
+                window.location.href = "/A03_2021_Flag";
+            } else {
+                alert(result.feedback + (result.explanation ? " " + result.explanation : ""));
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>

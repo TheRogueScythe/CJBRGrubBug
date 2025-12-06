@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coupon Redeemer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+<h1>Coupon Redeemer</h1>
+<p>Welcome to the Code Redeemer! Enter your coupon code to access discounts and rewards:</p>
+
+<form method="post">
+  <input type="text" name="coupon" placeholder="Enter coupon code">
+  <button type="submit">Redeem</button>
+</form>
+
+{% if code %}
+  <p>You entered: <code>{{ code }}</code></p>
+  {% if flag %}
+    <p style="color:green;">Coupon sucessfully redeemed!</p>
+    <p>{{ flag }}</p>
+  {% else %}
+    <p style="color:red;">ERROR: Invalid coupon. Please try again.</p>
+  {% endif %}
+{% endif %}
+
+<script>
+  var validCoupons = [
+    "DISCOUNT10",
+    "BUY1GET1",
+    "FREEFOOD123",
+    "HALFOFF",
+    "THREE4ME"
+  ];
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+FlaskAppWithVenv/
+│── venv/                # your virtual environment
+│── app.py               # main Flask app
+│── templates/           # HTML templates
+│   ├── loginPage.html
+│   ├── mainPage.html
+│   ├── teacherPages/
+│   │   ├── teacherHome.html
+│   │   ├── createUser.html
+│   │   ├── viewUsers.html
+│   │   ├── removeUsers.html
+│   ├── OSINT1/
+│   │   ├── Osint1.html
+│   │   └── Osint1Flag.html
+│   ├── OSINT2/
+│   │   ├── Osint2.html
+│   │   ├── Osint2Flag.html
+│   ├── OSINT3/
+│   │   ├── Osint3.html
+│   │   ├── Osint3Flag.html
+│   ├── OSINT4/
+│   │   ├── Osint4.html
+│   │   ├── Osint4Flag.html
+│── static/              # CSS, JS, images
+│── .env                 # environment variables
+│── requirements.txt

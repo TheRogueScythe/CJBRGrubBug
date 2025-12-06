@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AccessDenied</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/"><img src="/static/images/logo_hori.png" alt="GrubBug Logo" width="200"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li>Welcome, {{ user }} </li>
+                    <li><form action="/logout"><button type="submit">Logout</button></form></li>
+                    <li><form action="/mainpage"><button type="submit">Move to Homepage</button></form></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<main>
+    <div class="container">
+        <h1>Access Denied</h1>
+        <p>You do not have permission to access this page.</p>
+        <p>Current Mode: {{ mode | capitalize }}</p>
+        <a href="javascript:void(0)" onclick="window.history.length > 1 ? history.back() : window.location.href = '/'">Go Back</a>
+    </div>
+
+
+</main>
+</body>
+</html>
+
